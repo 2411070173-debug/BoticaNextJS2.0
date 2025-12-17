@@ -205,7 +205,7 @@ export function UserDashboard() {
                 <div>
                   <p className="text-sm text-gray-500">Cuenta creada</p>
                   <p className="font-semibold text-gray-900">
-                    {new Date(user.created_at).toLocaleDateString("es-ES", {
+                    {new Date((user as any).created_at).toLocaleDateString("es-ES", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
