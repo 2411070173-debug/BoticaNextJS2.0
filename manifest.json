@@ -1,0 +1,401 @@
+{
+  "proyecto": "Botica MVP",
+  "version": "1.0.0",
+  "descripcion": "Sistema completo de gestión de farmacia con Next.js 14 y Supabase",
+  "fecha_generacion": "16 de diciembre de 2025",
+
+  "stack": {
+    "framework": "Next.js 14",
+    "lenguaje": "TypeScript",
+    "estilos": "Tailwind CSS",
+    "autenticacion": "Supabase Auth",
+    "base_datos": "Supabase PostgreSQL",
+    "iconos": "Lucide React"
+  },
+
+  "estructura": {
+    "tipos": ["types/database.ts", "types/entities.ts"],
+    "hooks": [
+      "hooks/useAuth.ts",
+      "hooks/useMedicamentos.ts",
+      "hooks/useVentas.ts",
+      "hooks/useUsers.ts",
+      "hooks/useUserVentas.ts",
+      "hooks/useAdminStats.ts"
+    ],
+    "componentes_ui": [
+      "components/ui/button.tsx",
+      "components/ui/input.tsx",
+      "components/ui/card.tsx",
+      "components/ui/modal.tsx",
+      "components/ui/alert.tsx",
+      "components/ui/loading-spinner.tsx"
+    ],
+    "componentes_auth": [
+      "components/auth/login-form.tsx",
+      "components/auth/sign-up-form.tsx"
+    ],
+    "componentes_usuario": [
+      "components/dashboard/user-dashboard.tsx",
+      "components/dashboard/catalog-list.tsx"
+    ],
+    "componentes_admin": [
+      "components/admin/admin-dashboard.tsx",
+      "components/admin/inventory-table.tsx",
+      "components/admin/users-table.tsx"
+    ],
+    "navbar": ["components/navbar.tsx"],
+    "paginas": {
+      "publicas": [
+        "app/page.tsx",
+        "app/auth/login/page.tsx",
+        "app/auth/sign-up/page.tsx",
+        "app/auth/confirm/page.tsx",
+        "app/auth/sign-up-success/page.tsx"
+      ],
+      "usuario": [
+        "app/dashboard/page.tsx",
+        "app/dashboard/catalog/page.tsx",
+        "app/dashboard/layout.tsx"
+      ],
+      "admin": [
+        "app/admin/page.tsx",
+        "app/admin/inventory/page.tsx",
+        "app/admin/users/page.tsx",
+        "app/admin/layout.tsx"
+      ]
+    },
+    "rutas_api": ["app/auth/callback/route.ts"]
+  },
+
+  "instalacion": {
+    "paso_1": {
+      "titulo": "Leer documentación",
+      "duracion": "2 minutos",
+      "comando": "Abre SETUP.md",
+      "detalles": "Lee la guía completa de instalación"
+    },
+    "paso_2": {
+      "titulo": "Ejecutar SQL",
+      "duracion": "5 minutos",
+      "comando": "En Supabase: SQL Editor > New Query > Pega TODO el SQL > Run",
+      "detalles": "Crea tablas, funciones, triggers y políticas RLS"
+    },
+    "paso_3": {
+      "titulo": "Configurar variables",
+      "duracion": "1 minuto",
+      "comando": "Crea .env.local",
+      "archivo": ".env.local",
+      "contenido": "NEXT_PUBLIC_SUPABASE_URL=...\nNEXT_PUBLIC_SUPABASE_ANON_KEY=..."
+    },
+    "paso_4": {
+      "titulo": "Instalar dependencias",
+      "duracion": "3 minutos",
+      "comando": "npm install"
+    },
+    "paso_5": {
+      "titulo": "Iniciar servidor",
+      "duracion": "1 minuto",
+      "comando": "npm run dev",
+      "url": "http://localhost:3000"
+    }
+  },
+
+  "rutas_disponibles": {
+    "publicas": [
+      { "ruta": "/", "descripcion": "Home", "protegida": false },
+      { "ruta": "/auth/login", "descripcion": "Login", "protegida": false },
+      {
+        "ruta": "/auth/sign-up",
+        "descripcion": "Registro",
+        "protegida": false
+      },
+      {
+        "ruta": "/auth/confirm",
+        "descripcion": "Confirmar email",
+        "protegida": false
+      },
+      {
+        "ruta": "/auth/sign-up-success",
+        "descripcion": "Éxito del registro",
+        "protegida": false
+      }
+    ],
+    "usuario": [
+      {
+        "ruta": "/dashboard",
+        "descripcion": "Dashboard usuario",
+        "rol": "usuario",
+        "protegida": true
+      },
+      {
+        "ruta": "/dashboard/catalog",
+        "descripcion": "Catálogo de medicamentos",
+        "rol": "usuario",
+        "protegida": true
+      }
+    ],
+    "admin": [
+      {
+        "ruta": "/admin",
+        "descripcion": "Dashboard admin",
+        "rol": "admin",
+        "protegida": true
+      },
+      {
+        "ruta": "/admin/inventory",
+        "descripcion": "Gestión de inventario",
+        "rol": "admin",
+        "protegida": true
+      },
+      {
+        "ruta": "/admin/users",
+        "descripcion": "Gestión de usuarios",
+        "rol": "admin",
+        "protegida": true
+      }
+    ]
+  },
+
+  "funcionalidades": {
+    "autenticacion": {
+      "login_email": "Iniciar sesión con email y contraseña",
+      "login_oauth": "Iniciar sesión con Google",
+      "registro": "Crear cuenta nueva",
+      "confirmacion_email": "Confirmar email al registrarse",
+      "sesion_persistente": "Mantener sesión entre recargas"
+    },
+    "usuario": {
+      "ver_dashboard": "Resumen de cuenta y compras",
+      "ver_catalogo": "Lista de medicamentos disponibles",
+      "comprar": "Comprar medicamentos (descuenta stock automático)",
+      "historial": "Ver compras recientes",
+      "suscripcion": "Ver tipo y estado de suscripción"
+    },
+    "admin": {
+      "estadisticas": "Ver ventas, ingresos, stock bajo, usuarios",
+      "crear_medicamento": "Agregar nuevo medicamento",
+      "editar_medicamento": "Actualizar precio y stock",
+      "eliminar_medicamento": "Remover medicamento",
+      "listar_usuarios": "Ver todos los usuarios",
+      "cambiar_suscripcion": "Cambiar tipo de suscripción de usuario"
+    }
+  },
+
+  "base_de_datos": {
+    "tablas": [
+      {
+        "nombre": "auth.users",
+        "proposito": "Usuarios del sistema (manejado por Supabase)",
+        "columnas": ["id", "email", "password", "created_at"]
+      },
+      {
+        "nombre": "public.profiles",
+        "proposito": "Perfil del usuario",
+        "columnas": [
+          "id",
+          "user_id",
+          "full_name",
+          "role",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      {
+        "nombre": "public.user_subscriptions",
+        "proposito": "Suscripción del usuario",
+        "columnas": [
+          "id",
+          "user_id",
+          "subscription_type",
+          "start_date",
+          "end_date",
+          "is_active"
+        ]
+      },
+      {
+        "nombre": "public.medicamentos",
+        "proposito": "Catálogo de medicamentos",
+        "columnas": [
+          "id",
+          "nombre",
+          "descripcion",
+          "precio",
+          "stock",
+          "fecha_vencimiento"
+        ]
+      },
+      {
+        "nombre": "public.ventas",
+        "proposito": "Registro de compras",
+        "columnas": [
+          "id",
+          "user_id",
+          "medicamento_id",
+          "cantidad",
+          "precio_unitario",
+          "precio_total"
+        ]
+      }
+    ],
+    "tipos": [
+      { "nombre": "user_role", "valores": ["admin", "usuario"] },
+      { "nombre": "subscription_type", "valores": ["FREE", "BASIC", "PREMIUM"] }
+    ],
+    "triggers": [
+      {
+        "nombre": "on_auth_user_created",
+        "evento": "INSERT en auth.users",
+        "accion": "Crea profile y subscription"
+      },
+      {
+        "nombre": "update_stock_on_venta",
+        "evento": "INSERT en ventas",
+        "accion": "Descuenta stock de medicamento"
+      }
+    ]
+  },
+
+  "seguridad": {
+    "middleware": "Protege rutas por rol en Next.js",
+    "rls": "Row Level Security en base de datos",
+    "autenticacion": "Supabase Auth",
+    "validacion": "En cliente, servidor y base de datos",
+    "permisos": {
+      "usuario": [
+        "Ver su perfil",
+        "Ver su suscripción",
+        "Crear ventas",
+        "Ver su historial"
+      ],
+      "admin": [
+        "Ver todos los perfiles",
+        "Editar cualquier perfil",
+        "CRUD medicamentos",
+        "Ver todas las ventas"
+      ]
+    }
+  },
+
+  "documentacion": {
+    "SETUP.md": "Guía paso a paso de instalación",
+    "FLUJO.md": "Diagramas del flujo de la aplicación",
+    "TROUBLESHOOTING.md": "Solución de problemas comunes",
+    "GENERATED_FILES.md": "Lista detallada de todos los archivos",
+    "README_GENERACIÓN.md": "Resumen de qué se generó",
+    "INICIO.md": "Este archivo en formato descriptivo"
+  },
+
+  "scripts_disponibles": {
+    "dev": "npm run dev → Inicia servidor de desarrollo",
+    "build": "npm run build → Compila para producción",
+    "start": "npm run start → Inicia servidor en producción",
+    "lint": "npm run lint → Verifica errores de código",
+    "type-check": "npm run type-check → Verifica tipos TypeScript"
+  },
+
+  "variables_entorno": {
+    "NEXT_PUBLIC_SUPABASE_URL": {
+      "descripcion": "URL de tu proyecto Supabase",
+      "ejemplo": "https://tu-proyecto.supabase.co",
+      "obligatoria": true
+    },
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": {
+      "descripcion": "Clave pública de Supabase (anon key)",
+      "ejemplo": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "obligatoria": true
+    }
+  },
+
+  "casos_de_uso": [
+    {
+      "titulo": "Usuario se registra",
+      "pasos": [
+        "Va a /auth/sign-up",
+        "Llena formulario",
+        "Recibe email de confirmación",
+        "Confirma email",
+        "Se crea automáticamente profile y subscription",
+        "Accede a /dashboard"
+      ]
+    },
+    {
+      "titulo": "Usuario compra medicamento",
+      "pasos": [
+        "Va a /dashboard/catalog",
+        "Ve lista de medicamentos",
+        "Click 'Comprar'",
+        "Modal con cantidad",
+        "Confirma",
+        "Se crea venta y descuenta stock",
+        "Aparece en historial"
+      ]
+    },
+    {
+      "titulo": "Admin crea medicamento",
+      "pasos": [
+        "Va a /admin/inventory",
+        "Click 'Nuevo medicamento'",
+        "Llena formulario",
+        "Click 'Crear'",
+        "Medicamento aparece en catálogo"
+      ]
+    },
+    {
+      "titulo": "Admin cambia suscripción",
+      "pasos": [
+        "Va a /admin/users",
+        "Ve lista de usuarios",
+        "Click 'Editar' en usuario",
+        "Modal para cambiar suscripción",
+        "Selecciona nuevo tipo",
+        "Click 'Actualizar'",
+        "Suscripción se actualiza"
+      ]
+    }
+  ],
+
+  "tecnologias": {
+    "frontend": [
+      "Next.js 14 (App Router)",
+      "React 18",
+      "TypeScript",
+      "Tailwind CSS",
+      "Lucide Icons"
+    ],
+    "backend": [
+      "Supabase Auth",
+      "Supabase PostgreSQL",
+      "PostgreSQL Triggers",
+      "Row Level Security"
+    ]
+  },
+
+  "estadisticas": {
+    "archivos_totales": 57,
+    "componentes": 15,
+    "paginas": 13,
+    "hooks": 6,
+    "documentos": 5,
+    "lineas_codigo_aproximadas": 5000,
+    "funcionalidades": 25
+  },
+
+  "siguientes_pasos": [
+    "Leer SETUP.md",
+    "Ejecutar SQL en Supabase",
+    "Crear .env.local",
+    "npm install",
+    "npm run dev",
+    "Probar en http://localhost:3000",
+    "Crear cuenta de prueba",
+    "Explorar todas las funcionalidades"
+  ],
+
+  "soporte": {
+    "problemas": "Lee TROUBLESHOOTING.md",
+    "flujo": "Lee FLUJO.md",
+    "instalacion": "Lee SETUP.md",
+    "archivos": "Lee GENERATED_FILES.md"
+  }
+}
