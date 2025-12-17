@@ -66,7 +66,6 @@ export function SubscriptionView() {
     const colors = {
       gray: "from-gray-500 to-gray-600",
       blue: "from-blue-500 to-blue-600",
-      blue: "from-blue-500 to-blue-600",
     };
     return colors[color as keyof typeof colors] || colors.gray;
   };
